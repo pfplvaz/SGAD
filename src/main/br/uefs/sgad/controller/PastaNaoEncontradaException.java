@@ -1,4 +1,4 @@
-package main.br.uefs.sgad.util;
+package main.br.uefs.sgad.controller;
 
 public class PastaNaoEncontradaException extends Exception{
 
