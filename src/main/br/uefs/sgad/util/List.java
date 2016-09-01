@@ -1,6 +1,8 @@
 package main.br.uefs.sgad.util;
 
-public class List{
+import java.util.Iterator;
+
+public class List implements Iterable<Object>{
 	
 	private Node head;
 	private int size;
@@ -82,7 +84,25 @@ public class List{
 			return n;
 		}
 		return null;
-	} 
+	}
+	
+	public Iterator<Object> iterator() {
+		return new ListIterator();
+	}
+	
+	private class ListIterator implements Iterator<Object>{
+		private int cur = 0;
+		
+		public boolean hasNext() {
+			return getNode(cur) != null;
+		}
+
+		public Object next() {
+			Object data = get(cur);
+			cur++;
+			return data;
+		}
+	}
 	
 	private class Node{
 		private Object data;
@@ -107,7 +127,5 @@ public class List{
 		public void setData(Object o){
 			this.data = o;
 		}
-		
 	}
-
 }
