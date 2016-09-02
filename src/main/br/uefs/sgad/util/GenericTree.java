@@ -3,7 +3,7 @@ package main.br.uefs.sgad.util;
 import java.util.Iterator;
 
 public class GenericTree {
-	private Node root;
+	private Node root; 
 	
 	public void add(Element e, Object son){
 		if(this.root == null){
