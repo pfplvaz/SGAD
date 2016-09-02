@@ -5,24 +5,19 @@ import java.util.Iterator;
 public class GenericTree {
 	private Node root;
 	
-	public void addRoot(Object root){
-		if(root == null)
-			this.root = new Node(null, root);
+	public void add(Element e, Object son){
+		if(this.root == null){
+			Node root = new Node(null, son);
+			root.setHeight(0);
+		} else{
+			Node parent = (Node)e;
+			Node aux = new Node(parent, son);
+			aux.setHeight(parent.getHeight() + 1);			
+			parent.addSon(son);
+		}
 	}
 	
-	public Element getRoot(){
-		return root;
-	}
-	
-	public void set(Element e, Object data){
-		((Node)e).setData(data);
-	}
-	
-	public void addSon(Element e, Object son){
-		((Node)e).addSon(son);
-	}
-	
-	public Iterator<Object> getSons(Element e){
+	private Iterator<Object> getSons(Element e){
 		List sons = ((Node)e).getSons();
 		if(sons != null)
 			return sons.iterator();
@@ -40,7 +35,7 @@ public class GenericTree {
 			queue.add(root);
 		}
 		
-		public boolean hasNext() {
+		public boolean hasNext(){
 			return !queue.isEmpty();
 		}
 
@@ -60,6 +55,7 @@ public class GenericTree {
 		private Object data;
 		private Node parent;
 		private List sons;
+		private int height;
 		
 		public Node(Node parent, Object data){
 			this.parent = parent;
@@ -87,6 +83,14 @@ public class GenericTree {
 
 		public void addSon(Object son) {
 			sons.add(son);
+		}
+		
+		public int getHeight(){
+			return this.height;
+		}
+		
+		public void setHeight(int height){
+			this.height = height;
 		}
 	}
 }
