@@ -27,27 +27,24 @@ public class SgadController{
 		Object o = f.getName();
 		tree.add(null, o);
 		sons = f.list();
-		mountTree(tree.getElement(o), sons, f);
-
-		
-		
+		mountTree(tree.getElement(o), f, sons);
 	}
 	
-	private void mountTree(Element parent, String[] sons, File f){
+	private void mountTree(Element parent, File fa, String[] sons){
 		String[] aux;
+		Object o;
+		File fb;
 		
-		if(sons[0] != null){
+		if(sons == null){
 			return;
 		}
-		Object o;
-		for(int i = 0; i < sons.length; i++){
-			o = sons[i];
-			tree.add(parent, o);
-			f = new File(sons[i]);
-			aux = f.list();
-			mountTree(tree.getElement(sons[i]), aux, f);
-		}
 		
+		for(int i = 0; i < sons.length; i++){
+			fb = new File(fa.getPath() + "/" + sons[i]);
+			o = (fb.isDirectory()) ? sons[i] + "/" : sons[i];
+			tree.add(parent, o);
+			aux = fb.list();
+			mountTree(tree.getElement(o), fb, aux);
+		}
 	}
-
 }

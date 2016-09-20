@@ -7,21 +7,24 @@ public class GenericTree {
 	
 	public void add(Element dad, Object son){
 		if(this.root == null){
-			Node root = new Node(null, son, 0);
+			root = new Node(null, son, 0);
 		} else{
 			Node parent = (Node)dad;
 			Node aux = new Node(parent, son, parent.getHeight() + 1);		
-			parent.addSon(son);
+			parent.addSon(aux);
 		}
 	}
 	
 	public Element getElement(Object o){
 		Iterator<Object> i = new GenericTreeElementIterator();
 		Element aux;
+		String a = (String)o;
 		while(i.hasNext()){
 			aux = (Node)i.next();
-			if(aux.getData() == o)
+			String b = (String)aux.getData();
+			if(b.equals(a)){
 				return aux;
+			}
 		}
 		return null;
 	}
@@ -50,7 +53,7 @@ public class GenericTree {
 
 		public Object next(){
 			Node n = (Node)queue.remove();
-			if(n.getSons() != null){
+			if(n != null && n.getSons() != null){
 				Iterator<Object> sonsIterator = getSons(n);
 				while(sonsIterator.hasNext()){
 					queue.add(sonsIterator.next());
@@ -73,7 +76,7 @@ public class GenericTree {
 
 		public Object next(){
 			Node n = (Node)queue.remove();
-			if(n.getSons() != null){
+			if(n != null && n.getSons() != null){
 				Iterator<Object> sonsIterator = getSons(n);
 				while(sonsIterator.hasNext()){
 					queue.add(sonsIterator.next());
@@ -93,6 +96,7 @@ public class GenericTree {
 			this.parent = parent;
 			this.data = data;
 			this.height = height;
+			this.sons = new List();
 		}
 		
 		public Node getParent(){
@@ -111,7 +115,7 @@ public class GenericTree {
 		}
 
 		public List getSons() {
-			return sons;
+			return (sons != null) ? sons :  null;
 		}
 
 		public void addSon(Object son) {

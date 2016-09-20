@@ -15,15 +15,15 @@ public class Interface {
 	
 	public void mountMenu(){
 		
-		boolean valid = true;
+		boolean valid = false;
 		
 		System.out.println("SGAD - Sistema de Gerenciamento de \n    Arquivos e Diretórios\n\n");
-		System.out.println("Digite o caminho completo da pasta a ser montada");
+		System.out.println("Digite o caminho completo da pasta a ser montada: ");
 		
 		while(!valid){
 			try {
 				valid = true;
-				System.out.println("Caminho: ");
+				System.out.print("Caminho: ");
 				String path = Console.readString();
 				controller.mountPath(path);
 			} catch(PastaNaoEncontradaException e){

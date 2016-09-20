@@ -19,7 +19,7 @@ public class Queue{
 			head = tail = new Node(o);
 		} else{
 			Node aux = tail;
-			tail= new Node(o);
+			tail = new Node(o);
 			aux.setNext(tail);
 		}
 		size++;

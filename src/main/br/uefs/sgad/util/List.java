@@ -22,12 +22,14 @@ public class List implements Iterable<Object>{
 			Node n = getNode(getSize() - 1);
 			n.setNext(new Node(data));
 		}
+		size++;
 	}
 	
 	public void addBeginning(Object data) {
 		 Node temp = head;
 		 head = new Node(data);
 		 head.setNext(temp);
+		 size++;
 	}
 	
 	public void set(int index, Object data) {
@@ -62,6 +64,7 @@ public class List implements Iterable<Object>{
 			Node n = before.getNext();
 			before.setNext(n.getNext());
 		}
+		size--;
 	}
 	
 	public void remove(Object data) {
@@ -73,6 +76,7 @@ public class List implements Iterable<Object>{
 			}
 			n = n.getNext();
 		}
+		size--;
 	}
 	
 	private Node getNode(int index) {
