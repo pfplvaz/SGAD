@@ -24,7 +24,7 @@ public class SgadController{
 			throw new NaoEhPastaException(path);
 		}
 		
-		Object o = f.getName() + "/";
+		Object o = "/" + f.getName() + "/";
 		tree.add(null, o);
 		sons = f.list();
 		mountTree(tree.getElement(o), f, sons);
@@ -69,4 +69,47 @@ public class SgadController{
 			return found.iterator();
 		throw new ArquivoNaoEncontradoException(name);
 	}
+	
+	public Iterator<Object> seachByPath(String path, int depth) throws ArquivoNaoEncontradoException{
+		
+		String[] split;
+		Iterator<Object> i = tree.elementIterator();
+		Element e = null;
+		String aux;
+		boolean found = false;
+		List files = new List();
+		
+		split = path.split("/");
+		
+		while(i.hasNext() && !found){
+			e = (Element)i.next();
+			if(e.getDepth() <= depth || depth == 0){
+				aux = (String)e.getData();
+				if(aux.equals(split[split.length - 1] + "/")){
+					String str = tree.getPath(e) + aux;
+					if(str.equals(path)){
+						found = true;
+					}
+				}
+			}
+		}
+		
+		if(found){
+			i = tree.elementIterator(e);
+			while(i.hasNext()){
+				e = (Element)i.next();
+				if(e.getDepth() <= depth || depth == 0){
+					aux = (String)e.getData();
+					String str = tree.getPath(e) + aux;
+					files.add(str);
+				}
+			}
+		}
+
+		if(!files.isEmpty())
+			return files.iterator();
+		throw new ArquivoNaoEncontradoException(path);
+		
+	}
+	
 }

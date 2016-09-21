@@ -40,12 +40,12 @@ public class GenericTree {
 						path[index - 1] = (String)parent.getData();
 						index--;
 					}
-					String ret = "/";
+					String ret = "";
 					for(int x = 0; x < path.length; x++)
 						ret = ret + path[x];
 					return ret;
 				}
-				return "/" + (String)aux.getParent().getData();	
+				return (String)aux.getParent().getData();	
 			}
 		}
 		return null;
@@ -80,6 +80,10 @@ public class GenericTree {
 		return new GenericTreeElementIterator();
 	}
 	
+	public Iterator<Object> elementIterator(Element e){
+		return new GenericTreeElementIterator((Node)e);
+	}
+	
 	public class GenericTreeIterator implements Iterator<Object>{
 		private Queue queue = new Queue();
 		
@@ -108,6 +112,10 @@ public class GenericTree {
 		
 		public GenericTreeElementIterator(){
 			queue.add(root);
+		}
+		
+		public GenericTreeElementIterator(Node n){
+			queue.add(n);
 		}
 		
 		public boolean hasNext(){

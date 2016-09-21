@@ -78,18 +78,38 @@ public class Interface {
 				System.out.print("Digite o nome do arquivo: ");
 				String name = Console.readString();
 				System.out.print("\nDigite o nível de profundidade: ");
-				int depth = Console.readInt();
+				int depth1 = Console.readInt();
 				
-				Iterator<Object> i = null;
+				Iterator<Object> i1 = null;
 				try {
-					i = controller.seachByName(name, depth);
+					i1 = controller.seachByName(name, depth1);
 				} catch (ArquivoNaoEncontradoException e) {
 					System.out.println("Arquivo não encontrado !");
 				}
-				if(i != null){
+				if(i1 != null){
 					System.out.println("Resultados: ");
-					while(i.hasNext()){
-						System.out.println((String)i.next());
+					while(i1.hasNext()){
+						System.out.println((String)i1.next());
+					}
+				}
+				break;
+				
+			case 2:
+				System.out.print("Digite o caminho: ");
+				String path = Console.readString();
+				System.out.print("\nDigite o nível de profundidade: ");
+				int depth2 = Console.readInt();
+				
+				Iterator<Object> i2 = null;
+				try {
+					i2 = controller.seachByPath(path, depth2);
+				} catch (ArquivoNaoEncontradoException e) {
+					System.out.println("Diretório não encontrado !");
+				}
+				if(i2 != null){
+					System.out.println("Resultados: ");
+					while(i2.hasNext()){
+						System.out.println((String)i2.next());
 					}
 				}
 				break;
