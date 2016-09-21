@@ -95,23 +95,7 @@ public class Interface {
 				break;
 				
 			case 2:
-				System.out.print("Digite o caminho: ");
-				String path = Console.readString();
-				System.out.print("\nDigite o nível de profundidade: ");
-				int depth2 = Console.readInt();
 				
-				Iterator<Object> i2 = null;
-				try {
-					i2 = controller.seachByPath(path, depth2);
-				} catch (ArquivoNaoEncontradoException e) {
-					System.out.println("Diretório não encontrado !");
-				}
-				if(i2 != null){
-					System.out.println("Resultados: ");
-					while(i2.hasNext()){
-						System.out.println((String)i2.next());
-					}
-				}
 				break;
 				
 			case 3:
@@ -132,6 +116,25 @@ public class Interface {
 						System.out.println((String)i3.next());
 					}
 				}
+				break;
+				
+			case 4:
+				System.out.print("Digite o caminho: ");
+				String path = Console.readString();
+				System.out.print("\nDigite o nível de profundidade: ");
+				int depth4 = Console.readInt();
+				System.out.print("\nDigite o nome do arquivo que será gerado: ");
+				String fileName = Console.readString();
+				
+				try {
+					controller.exportPath(path, depth4, fileName);
+					System.out.println("\nArquivo criado com sucesso !");
+				} catch (ArquivoNaoEncontradoException e) {
+					System.out.println("Diretório não encontrado !");
+				} catch (IOException e){
+					System.out.println("Não foi possível criar o arquivo !");
+				}
+				
 				break;
 				
 			case 9:
