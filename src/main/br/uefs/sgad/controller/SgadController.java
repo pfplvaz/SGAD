@@ -1,6 +1,8 @@
 package main.br.uefs.sgad.controller;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 
 import main.br.uefs.sgad.util.*;
@@ -70,7 +72,30 @@ public class SgadController{
 		throw new ArquivoNaoEncontradoException(name);
 	}
 	
-	public Iterator<Object> seachByPath(String path, int depth) throws ArquivoNaoEncontradoException{
+	public Iterator<Object> seachByType(String type, int depth) throws TipoNaoEncontradoException{
+		
+		Iterator<Object> i = tree.elementIterator();
+		Element e;
+		String aux;
+		List found = new List();
+		
+		while(i.hasNext()){
+			e = (Element)i.next();
+			if(e.getDepth() <= depth || depth == 0){
+				aux = (String)e.getData();
+				if(aux.endsWith(type)){
+					String path = tree.getPath(e) + aux;
+					found.add(path);
+				}
+			}
+		}
+		if(!found.isEmpty())
+			return found.iterator();
+		throw new TipoNaoEncontradoException(type);
+
+	}
+	
+public void exportPath(String path, int depth, String fileName) throws ArquivoNaoEncontradoException, IOException{
 		
 		String[] split;
 		Iterator<Object> i = tree.elementIterator();
@@ -105,34 +130,21 @@ public class SgadController{
 				}
 			}
 		}
-
-		if(!files.isEmpty())
-			return files.iterator();
-		throw new ArquivoNaoEncontradoException(path);
 		
-	}
-	
-	public Iterator<Object> seachByType(String type, int depth) throws TipoNaoEncontradoException{
-		
-		Iterator<Object> i = tree.elementIterator();
-		Element e;
-		String aux;
-		List found = new List();
-		
-		while(i.hasNext()){
-			e = (Element)i.next();
-			if(e.getDepth() <= depth || depth == 0){
-				aux = (String)e.getData();
-				if(aux.endsWith(type)){
-					String path = tree.getPath(e) + aux;
-					found.add(path);
+		if(!files.isEmpty()){
+			i = files.iterator();
+			try{
+				FileWriter file = new FileWriter(new File(fileName + ".txt"));
+				while(i.hasNext()){
+					file.write((String)i.next() + "\n");
 				}
+				file.close();
+			} catch(IOException ex){
+				throw ex;
 			}
+		} else{
+			throw new ArquivoNaoEncontradoException(path);
 		}
-		if(!found.isEmpty())
-			return found.iterator();
-		throw new TipoNaoEncontradoException(type);
-
 	}
 	
 }
