@@ -72,6 +72,7 @@ public class SgadController{
 		throw new ArquivoNaoEncontradoException(name);
 	}
 	
+<<<<<<< HEAD
 public Iterator<Object> seachByFolder(String folder, int depth) throws ArquivoNaoEncontradoException{
 		
 		Iterator<Object> i = tree.elementIterator();
@@ -94,6 +95,8 @@ public Iterator<Object> seachByFolder(String folder, int depth) throws ArquivoNa
 		throw new ArquivoNaoEncontradoException(folder);
 	}
 	
+=======
+>>>>>>> refs/remotes/origin/master
 	public Iterator<Object> seachByType(String type, int depth) throws TipoNaoEncontradoException{
 		
 		Iterator<Object> i = tree.elementIterator();

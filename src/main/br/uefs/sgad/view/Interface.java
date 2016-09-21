@@ -95,11 +95,15 @@ public class Interface {
 				break;
 				
 			case 2:
+<<<<<<< HEAD
 				System.out.print("Digite o nome do diretório: ");
 				String folder = Console.readString();
 				System.out.print("\nDigite o nível de profundidade: ");
 				int depth2 = Console.readInt();
+=======
+>>>>>>> refs/remotes/origin/master
 				
+<<<<<<< HEAD
 				Iterator<Object> i2 = null;
 				try {
 					i2 = controller.seachByFolder(folder, depth2);
@@ -112,6 +116,8 @@ public class Interface {
 						System.out.println((String)i2.next());
 					}
 				}
+=======
+>>>>>>> refs/remotes/origin/master
 				break;
 				
 			case 3:
