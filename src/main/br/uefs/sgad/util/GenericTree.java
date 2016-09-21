@@ -151,16 +151,8 @@ public class GenericTree {
 			return parent;
 		}
 		
-		public void setParent(Node parent){
-			this.parent = parent;
-		}
-		
 		public Object getData() {
 			return data;
-		}
-
-		public void setData(Object data){
-			this.data = data;
 		}
 
 		public List getSons() {
