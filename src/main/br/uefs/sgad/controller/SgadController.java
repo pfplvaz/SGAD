@@ -112,4 +112,27 @@ public class SgadController{
 		
 	}
 	
+	public Iterator<Object> seachByType(String type, int depth) throws TipoNaoEncontradoException{
+		
+		Iterator<Object> i = tree.elementIterator();
+		Element e;
+		String aux;
+		List found = new List();
+		
+		while(i.hasNext()){
+			e = (Element)i.next();
+			if(e.getDepth() <= depth || depth == 0){
+				aux = (String)e.getData();
+				if(aux.endsWith(type)){
+					String path = tree.getPath(e) + aux;
+					found.add(path);
+				}
+			}
+		}
+		if(!found.isEmpty())
+			return found.iterator();
+		throw new TipoNaoEncontradoException(type);
+
+	}
+	
 }

@@ -114,8 +114,29 @@ public class Interface {
 				}
 				break;
 				
+			case 3:
+				System.out.print("Digite o tipo: ");
+				String type = Console.readString();
+				System.out.print("\nDigite o nível de profundidade: ");
+				int depth3 = Console.readInt();
+				
+				Iterator<Object> i3 = null;
+				try {
+					i3 = controller.seachByType(type, depth3);
+				} catch (TipoNaoEncontradoException e) {
+					System.out.println("Tipo não encontrado !");
+				}
+				if(i3 != null){
+					System.out.println("Resultados: ");
+					while(i3.hasNext()){
+						System.out.println((String)i3.next());
+					}
+				}
+				break;
+				
 			case 9:
 				exit = true;
+				
 				break;
 			}
 		}
