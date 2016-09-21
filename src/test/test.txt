@@ -1,0 +1,2 @@
+/pasta0/pasta1/
+/pasta0/pasta1/arquivo1.mp3
