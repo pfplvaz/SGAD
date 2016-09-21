@@ -61,7 +61,7 @@ public class SgadController{
 			e = (Element)i.next();
 			if(e.getDepth() <= depth || depth == 0){
 				aux = (String)e.getData();
-				if(aux.startsWith(name)){
+				if(aux.startsWith(name) && !aux.endsWith("/")){
 					String path = tree.getPath(e) + aux;
 					found.add(path);
 				}
@@ -70,6 +70,28 @@ public class SgadController{
 		if(!found.isEmpty())
 			return found.iterator();
 		throw new ArquivoNaoEncontradoException(name);
+	}
+	
+public Iterator<Object> seachByFolder(String folder, int depth) throws ArquivoNaoEncontradoException{
+		
+		Iterator<Object> i = tree.elementIterator();
+		Element e;
+		String aux;
+		List found = new List();
+		
+		while(i.hasNext()){
+			e = (Element)i.next();
+			if(e.getDepth() <= depth || depth == 0){
+				aux = (String)e.getData();
+				if(aux.equals(folder + "/")){
+					String path = tree.getPath(e) + aux;
+					found.add(path);
+				}
+			}
+		}
+		if(!found.isEmpty())
+			return found.iterator();
+		throw new ArquivoNaoEncontradoException(folder);
 	}
 	
 	public Iterator<Object> seachByType(String type, int depth) throws TipoNaoEncontradoException{

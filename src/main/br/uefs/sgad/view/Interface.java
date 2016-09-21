@@ -53,7 +53,7 @@ public class Interface {
 			
 			System.out.println("\n          Menu Principal\n");
 			System.out.println("1 - Pesquisar arquivo através do nome");
-			System.out.println("2 - Pesquisar arquivo através da pasta");
+			System.out.println("2 - Pesquisar diretório através do nome");
 			System.out.println("3 - Pesquisar arquivo por tipo");
 			System.out.println("4 - Exportar estrutura de diretório");
 			System.out.println("9 - Sair");
@@ -95,7 +95,23 @@ public class Interface {
 				break;
 				
 			case 2:
+				System.out.print("Digite o nome do diretório: ");
+				String folder = Console.readString();
+				System.out.print("\nDigite o nível de profundidade: ");
+				int depth2 = Console.readInt();
 				
+				Iterator<Object> i2 = null;
+				try {
+					i2 = controller.seachByFolder(folder, depth2);
+				} catch (ArquivoNaoEncontradoException e) {
+					System.out.println("Diretório não encontrado !");
+				}
+				if(i2 != null){
+					System.out.println("Resultados: ");
+					while(i2.hasNext()){
+						System.out.println((String)i2.next());
+					}
+				}
 				break;
 				
 			case 3:
