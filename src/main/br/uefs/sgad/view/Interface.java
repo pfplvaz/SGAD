@@ -103,7 +103,7 @@ public class Interface {
 				Iterator<Object> i2 = null;
 				try {
 					i2 = controller.seachByFolder(folder, depth2);
-				} catch (ArquivoNaoEncontradoException e) {
+				} catch (PastaNaoEncontradaException e) {
 					System.out.println("Diretório não encontrado !");
 				}
 				if(i2 != null){
