@@ -10,9 +10,45 @@ public class GenericTree {
 			root = new Node(null, son, 0);
 		} else{
 			Node parent = (Node)dad;
-			Node aux = new Node(parent, son, parent.getHeight() + 1);		
+			Node aux = new Node(parent, son, parent.getDepth() + 1);		
 			parent.addSon(aux);
 		}
+	}
+	
+	public String getPath(Element e){
+		Iterator<Object> i = elementIterator();
+		Node aux;
+		Node parent;
+		String[] path;
+		Object a = e.getData();
+		Object b;
+		int index;
+		
+		
+		while(i.hasNext()){
+			aux = (Node)i.next();
+			b = aux.getData();
+			if(a == b){
+				if(aux.getDepth() > 1){
+					parent = aux.getParent();
+					index = parent.getDepth() + 1;
+					path = new String[index];
+					path[index - 1] = (String)parent.getData();
+					index--;
+					while(parent.getParent() != null){
+						parent = parent.getParent();
+						path[index - 1] = (String)parent.getData();
+						index--;
+					}
+					String ret = "/";
+					for(int x = 0; x < path.length; x++)
+						ret = ret + path[x];
+					return ret;
+				}
+				return "/" + (String)aux.getParent().getData();	
+			}
+		}
+		return null;
 	}
 	
 	public Element getElement(Object o){
@@ -40,6 +76,10 @@ public class GenericTree {
 		return new GenericTreeIterator();
 	}
 	
+	public Iterator<Object> elementIterator(){
+		return new GenericTreeElementIterator();
+	}
+	
 	public class GenericTreeIterator implements Iterator<Object>{
 		private Queue queue = new Queue();
 		
@@ -63,7 +103,7 @@ public class GenericTree {
 		}
 	}
 	
-	private class GenericTreeElementIterator implements Iterator<Object>{
+	public class GenericTreeElementIterator implements Iterator<Object>{
 		private Queue queue = new Queue();
 		
 		public GenericTreeElementIterator(){
@@ -90,12 +130,12 @@ public class GenericTree {
 		private Object data;
 		private Node parent;
 		private List sons;
-		private int height;
+		private int depth;
 		
-		public Node(Node parent, Object data, int height){
+		public Node(Node parent, Object data, int depth){
 			this.parent = parent;
 			this.data = data;
-			this.height = height;
+			this.depth = depth;
 			this.sons = new List();
 		}
 		
@@ -110,6 +150,7 @@ public class GenericTree {
 		public Object getData() {
 			return data;
 		}
+
 		public void setData(Object data){
 			this.data = data;
 		}
@@ -122,8 +163,8 @@ public class GenericTree {
 			sons.add(son);
 		}
 
-		public int getHeight() {
-			return height;
+		public int getDepth() {
+			return depth;
 		}
 		
 	}

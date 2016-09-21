@@ -1,9 +1,9 @@
 package main.br.uefs.sgad.controller;
 
 import java.io.File;
+import java.util.Iterator;
 
-import main.br.uefs.sgad.util.Element;
-import main.br.uefs.sgad.util.GenericTree;
+import main.br.uefs.sgad.util.*;
 
 public class SgadController{
 	
@@ -24,7 +24,7 @@ public class SgadController{
 			throw new NaoEhPastaException(path);
 		}
 		
-		Object o = f.getName();
+		Object o = f.getName() + "/";
 		tree.add(null, o);
 		sons = f.list();
 		mountTree(tree.getElement(o), f, sons);
@@ -46,5 +46,27 @@ public class SgadController{
 			aux = fb.list();
 			mountTree(tree.getElement(o), fb, aux);
 		}
+	}
+	
+	public Iterator<Object> seachByName(String name, int depth) throws ArquivoNaoEncontradoException{
+		
+		Iterator<Object> i = tree.elementIterator();
+		Element e;
+		String aux;
+		List found = new List();
+		
+		while(i.hasNext()){
+			e = (Element)i.next();
+			if(e.getDepth() <= depth || depth == 0){
+				aux = (String)e.getData();
+				if(aux.startsWith(name)){
+					String path = tree.getPath(e) + aux;
+					found.add(path);
+				}
+			}
+		}
+		if(!found.isEmpty())
+			return found.iterator();
+		throw new ArquivoNaoEncontradoException(name);
 	}
 }
