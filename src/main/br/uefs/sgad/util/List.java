@@ -25,20 +25,6 @@ public class List implements Iterable<Object>{
 		size++;
 	}
 	
-	public void addBeginning(Object data) {
-		 Node temp = head;
-		 head = new Node(data);
-		 head.setNext(temp);
-		 size++;
-	}
-	
-	public void set(int index, Object data) {
-		Node n = getNode(index);
-		if(n != null) {
-			n.setData(data);
-		}
-	}
-	
 	public Object get(int index) {
 		Node n = getNode(index);
 		if (n != null) {
@@ -46,15 +32,6 @@ public class List implements Iterable<Object>{
 		}
 		return null;
 	}
-	
-	public boolean contains(Object data) {
-		for(Node n = head; n != null; n = n.getNext()){
-			if (n.getData() != null && n.getData().equals(data)) {
-				return true;
-			}
-		}
-		return false;
-	} 
 	
 	public void remove(int index) {
 		if(index == 0) {
@@ -126,10 +103,6 @@ public class List implements Iterable<Object>{
 		
 		public Object getData(){
 			return data;
-		}
-		
-		public void setData(Object o){
-			this.data = o;
 		}
 	}
 }

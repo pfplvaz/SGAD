@@ -2,10 +2,35 @@ package main.br.uefs.sgad.util;
 
 import java.util.Iterator;
 
+/**
+ * Classe que representa uma árvore  generica, podendo ter n nós com n filhos.
+ * Para a implementação dessa estrutura, foi utilizado o conseito de um nó
+ * contendo o pai, o dado e uma lista e filhos.
+ * 
+ * @author pfplvaz
+ */
+
 public class GenericTree {
+	
+	/**
+	 * Atributo que armazena a raiz da árvore.
+	 */
+	
 	private Node root; 
 	
+	/**
+	 * Método para adicionar um objeto (son) na árvore, tendo
+	 * como referência o objeto pai (dad).
+	 * Verifica se a árvore está vazia antes de adicionar.
+	 * No caso de ela estar vazia, o elemento passado como parâmetro
+	 * será a raiz.
+	 * 
+	 * @param dad
+	 * @param son
+	 */
+	
 	public void add(Element dad, Object son){
+		
 		if(this.root == null){
 			root = new Node(null, son, 0);
 		} else{
@@ -14,6 +39,14 @@ public class GenericTree {
 			parent.addSon(aux);
 		}
 	}
+	
+	/**
+	 * Método responsável por receber um elemento e retornar
+	 * o seu caminho completo, desde a raiz.
+	 * 
+	 * @param e
+	 * @return
+	 */
 	
 	public String getPath(Element e){
 		Iterator<Object> i = elementIterator();
@@ -24,17 +57,38 @@ public class GenericTree {
 		Object b;
 		int index;
 		
+		// Percorre a árvore para que se encontre o elemento.
 		
 		while(i.hasNext()){
 			aux = (Node)i.next();
 			b = aux.getData();
+			
+			// Verifica se o elemento atual é o que se procura.
+			
 			if(a == b){
+				
+				// Verificação para garantir que o elemento não esteja na raiz.
+				
 				if(aux.getDepth() > 1){
+
+					/* O caminho será todo armazenado em um vetor do tamanho da profundiade
+					 * do pai do elemento encontrado.
+					 * O vetor será preenchido de trás para frente.
+					 */
+					
 					parent = aux.getParent();
 					index = parent.getDepth() + 1;
 					path = new String[index];
+					
+					// Primeiro nome é inserido na ultima posição do vetor.
+					
 					path[index - 1] = (String)parent.getData();
 					index--;
+					
+					/* O vetor será preenchido de trás para frente até que
+					 * não haja mais pais a serem adicionados.
+					*/
+					
 					while(parent.getParent() != null){
 						parent = parent.getParent();
 						path[index - 1] = (String)parent.getData();
