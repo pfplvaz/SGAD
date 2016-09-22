@@ -94,6 +94,9 @@ public class GenericTree {
 						path[index - 1] = (String)parent.getData();
 						index--;
 					}
+					
+					// Uma string será composta pelos elementos do vetor
+					
 					String ret = "";
 					for(int x = 0; x < path.length; x++)
 						ret = ret + path[x];
@@ -104,6 +107,13 @@ public class GenericTree {
 		}
 		return null;
 	}
+	
+	/**
+	 * Método responsável por receber um Object e retornar se Node, na forma de Element. 
+	 * 
+	 * @param o
+	 * @return
+	 */
 	
 	public Element getElement(Object o){
 		Iterator<Object> i = new GenericTreeElementIterator();
@@ -119,6 +129,13 @@ public class GenericTree {
 		return null;
 	}
 	
+	/**
+	 * Método que retorna o iterador da lista de filhos de um determinado elemento.
+	 * 
+	 * @param e
+	 * @return
+	 */
+	
 	private Iterator<Object> getSons(Element e){
 		List sons = ((Node)e).getSons();
 		if(sons != null)
@@ -126,17 +143,45 @@ public class GenericTree {
 		return null;
 	}
 	
+	/**
+	 * Método que retorna o iterador da estrutura.
+	 * 
+	 * @return
+	 */
+	
 	public Iterator<Object> iterator(){
 		return new GenericTreeIterator();
 	}
+	
+	/**
+	 * Método que retorna um iterador especial da estrutura
+	 * que retorna o Node em forma de Element.
+	 * 
+	 * @return
+	 */
 	
 	public Iterator<Object> elementIterator(){
 		return new GenericTreeElementIterator();
 	}
 	
+	/**
+	 * Método que retorna um iterador especial da estrutura
+	 * que retorna o Node em forma de Element.
+	 * 
+	 * @param e
+	 * @return
+	 */
+	
 	public Iterator<Object> elementIterator(Element e){
 		return new GenericTreeElementIterator((Node)e);
 	}
+	
+	/**
+	 * Classe interna do iterador.
+	 * 
+	 * @author pfplvaz
+	 *
+	 */
 	
 	public class GenericTreeIterator implements Iterator<Object>{
 		private Queue queue = new Queue();
@@ -160,6 +205,13 @@ public class GenericTree {
 			return n.getData();
 		}
 	}
+	
+	/**
+	 * Classe interna do iterador que retorna objetos do tipo Element.
+	 * 
+	 * @author pfplvaz
+	 *
+	 */
 	
 	public class GenericTreeElementIterator implements Iterator<Object>{
 		private Queue queue = new Queue();
@@ -187,6 +239,14 @@ public class GenericTree {
 			return n;
 		}
 	}
+	
+	/**
+	 * Classe interna do nó utilizado pela estrutura, que implementa
+	 * a interface Element.
+	 * 
+	 * @author pfplvaz
+	 *
+	 */
 	
 	private class Node implements Element{
 		private Object data;
